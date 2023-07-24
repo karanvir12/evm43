@@ -49,7 +49,7 @@ benchmarks! {
 	}: _(RawOrigin::Root, Default::default())
 
 	set_code {
-		let runtime_blob = include_bytes!("../res/kitchensink_runtime.compact.compressed.wasm").to_vec();
+		let runtime_blob = include_bytes!("../res/node_5ire_runtime.compact.compressed.wasm").to_vec();
 	}: _(RawOrigin::Root, runtime_blob)
 	verify {
 		System::<T>::assert_last_event(frame_system::Event::<T>::CodeUpdated.into());

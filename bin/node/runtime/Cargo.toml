@@ -1,5 +1,5 @@
 [package]
-name = "kitchensink-runtime"
+name = "node-5ire-runtime"
 version = "3.0.0-dev"
 authors = ["Parity Technologies <admin@parity.io>"]
 description = "Substrate node kitchensink runtime."

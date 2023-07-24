@@ -23,7 +23,7 @@ use crate::{
 	Cli, Subcommand,
 };
 use frame_benchmarking_cli::*;
-use kitchensink_runtime::{ExistentialDeposit, RuntimeApi};
+use node_5ire_runtime::{ExistentialDeposit, RuntimeApi};
 use node_executor::ExecutorDispatch;
 use node_primitives::Block;
 use sc_cli::{ChainSpec, Result, RuntimeVersion, SubstrateCli};
@@ -34,7 +34,7 @@ use std::sync::Arc;
 
 #[cfg(feature = "try-runtime")]
 use {
-	kitchensink_runtime::constants::time::SLOT_DURATION,
+	node_5ire_runtime::constants::time::SLOT_DURATION,
 	try_runtime_cli::block_building_info::substrate_info,
 };
 
@@ -81,7 +81,7 @@ impl SubstrateCli for Cli {
 	}
 
 	fn native_runtime_version(_: &Box<dyn ChainSpec>) -> &'static RuntimeVersion {
-		&kitchensink_runtime::VERSION
+		&node_5ire_runtime::VERSION
 	}
 }
 

@@ -177,10 +177,10 @@
 //! # this is like your WIP branch.
 //! cargo build --release --features try-runtime
 //! cp target/release/substrate substrate-try-runtime
-//! cp ./target/release/wbuild/kitchensink-runtime/kitchensink_runtime.wasm runtime-try-runtime.wasm
+//! cp ./target/release/wbuild/node-5ire-runtime/node_5ire_runtime.wasm runtime-try-runtime.wasm
 //! ```
 //!
-//! > The above example is with `substrate`'s `kitchensink-runtime`, but is applicable to any
+//! > The above example is with `substrate`'s `node-5ire-runtime`, but is applicable to any
 //! > substrate-based chain that has implemented `try-runtime-cli`.
 //!
 //! * If you run `try-runtime` subcommand against `substrate` binary listed above, you get the

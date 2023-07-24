@@ -34,7 +34,7 @@ use crate::{
 };
 use codec::{Decode, Encode};
 use futures::executor;
-use kitchensink_runtime::{
+use node_5ire_runtime::{
 	constants::currency::DOLLARS, AccountId, BalancesCall, CheckedExtrinsic, MinimumPeriod,
 	RuntimeCall, Signature, SystemCall, UncheckedExtrinsic,
 };
@@ -299,13 +299,13 @@ impl<'a> Iterator for BlockContentIterator<'a> {
 			CheckedExtrinsic {
 				signed: Some((
 					sender,
-					signed_extra(0, kitchensink_runtime::ExistentialDeposit::get() + 1),
+					signed_extra(0, node_5ire_runtime::ExistentialDeposit::get() + 1),
 				)),
 				function: match self.content.block_type {
 					BlockType::RandomTransfersKeepAlive =>
 						RuntimeCall::Balances(BalancesCall::transfer_keep_alive {
 							dest: sp_runtime::MultiAddress::Id(receiver),
-							value: kitchensink_runtime::ExistentialDeposit::get() + 1,
+							value: node_5ire_runtime::ExistentialDeposit::get() + 1,
 						}),
 					BlockType::RandomTransfersReaping => {
 						RuntimeCall::Balances(BalancesCall::transfer_allow_death {
@@ -313,7 +313,7 @@ impl<'a> Iterator for BlockContentIterator<'a> {
 							// Transfer so that ending balance would be 1 less than existential
 							// deposit so that we kill the sender account.
 							value: 100 * DOLLARS -
-								(kitchensink_runtime::ExistentialDeposit::get() - 1),
+								(node_5ire_runtime::ExistentialDeposit::get() - 1),
 						})
 					},
 					BlockType::Noop =>
@@ -603,9 +603,9 @@ impl BenchKeyring {
 	}
 
 	/// Generate genesis with accounts from this keyring endowed with some balance.
-	pub fn generate_genesis(&self) -> kitchensink_runtime::GenesisConfig {
+	pub fn generate_genesis(&self) -> node_5ire_runtime::GenesisConfig {
 		crate::genesis::config_endowed(
-			Some(kitchensink_runtime::wasm_binary_unwrap()),
+			Some(node_5ire_runtime::wasm_binary_unwrap()),
 			self.collect_account_ids(),
 		)
 	}
