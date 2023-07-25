@@ -34,5 +34,5 @@ pallet-staking = { version = "4.0.0-dev", path = "../../staking" }
 pallet-bags-list = { version = "4.0.0-dev", path = "../../bags-list" }
 pallet-balances = { version = "4.0.0-dev", path = "../../balances" }
 pallet-timestamp = { version = "4.0.0-dev", path = "../../timestamp" }
-pallet-session = { version = "4.0.0-dev", path = "../../session" }
+pallet-session = { version = "4.0.0-dev", path = "../../session", features = ["historical"] }
 

@@ -28,7 +28,7 @@ sp-staking = { version = "4.0.0-dev", default-features = false, path = "../../pr
 sp-std = { version = "5.0.0", default-features = false, path = "../../primitives/std" }
 
 [dev-dependencies]
-pallet-session = { version = "4.0.0-dev", path = "../session" }
+pallet-session = { version = "4.0.0-dev", path = "../session" , features = ["historical"]}
 
 [features]
 default = ["std"]

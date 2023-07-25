@@ -24,6 +24,9 @@ scale-info = { version = "2.5.0", default-features = false, features = ["derive"
 static_assertions = "1.1.0"
 log = { version = "0.4.17", default-features = false }
 
+getrandom = { version = "0.2", features = ["js"] }
+
+
 # primitives
 sp-authority-discovery = { version = "4.0.0-dev", default-features = false, path = "../../../primitives/authority-discovery" }
 sp-consensus-babe = { version = "0.10.0-dev", default-features = false, path = "../../../primitives/consensus/babe" }
@@ -45,7 +48,7 @@ sp-io = { version = "7.0.0", default-features = false, path = "../../../primitiv
 
 # frame dependencies
 frame-executive = { version = "4.0.0-dev", default-features = false, path = "../../../frame/executive" }
-frame-benchmarking = { version = "4.0.0-dev", default-features = false, path = "../../../frame/benchmarking" }
+frame-benchmarking = { version = "4.0.0-dev", default-features = false, path = "../../../frame/benchmarking",optional = true }
 frame-benchmarking-pallet-pov = { version = "4.0.0-dev", default-features = false, path = "../../../frame/benchmarking/pov" }
 frame-support = { version = "4.0.0-dev", default-features = false, path = "../../../frame/support", features = ["tuples-96"] }
 frame-system = { version = "4.0.0-dev", default-features = false, path = "../../../frame/system" }
@@ -95,13 +98,15 @@ pallet-glutton = { version = "4.0.0-dev", default-features = false, path = "../.
 pallet-preimage = { version = "4.0.0-dev", default-features = false, path = "../../../frame/preimage" }
 pallet-proxy = { version = "4.0.0-dev", default-features = false, path = "../../../frame/proxy" }
 pallet-insecure-randomness-collective-flip = { version = "4.0.0-dev", default-features = false, path = "../../../frame/insecure-randomness-collective-flip" }
+#pallet-randomness-collective-flip = { version = "4.0.0-dev", default-features = false, path = "../../../frame/randomness-collective-flip" }
+
 pallet-ranked-collective = { version = "4.0.0-dev", default-features = false, path = "../../../frame/ranked-collective" }
 pallet-recovery = { version = "4.0.0-dev", default-features = false, path = "../../../frame/recovery" }
 pallet-referenda = { version = "4.0.0-dev", default-features = false, path = "../../../frame/referenda" }
 pallet-remark = { version = "4.0.0-dev", default-features = false, path = "../../../frame/remark" }
 pallet-root-testing = { version = "1.0.0-dev", default-features = false, path = "../../../frame/root-testing" }
 pallet-salary = { version = "4.0.0-dev", default-features = false, path = "../../../frame/salary" }
-pallet-session = { version = "4.0.0-dev", features = [ "historical" ], path = "../../../frame/session", default-features = false }
+pallet-session = { version = "4.0.0-dev", features = ["historical"],path = "../../../frame/session", default-features = false }
 pallet-session-benchmarking = { version = "4.0.0-dev", path = "../../../frame/session/benchmarking", default-features = false, optional = true }
 pallet-staking = { version = "4.0.0-dev", default-features = false, path = "../../../frame/staking" }
 pallet-staking-reward-curve = { version = "4.0.0-dev", default-features = false, path = "../../../frame/staking/reward-curve" }
@@ -122,6 +127,22 @@ pallet-transaction-storage = { version = "4.0.0-dev", default-features = false, 
 pallet-uniques = { version = "4.0.0-dev", default-features = false, path = "../../../frame/uniques" }
 pallet-vesting = { version = "4.0.0-dev", default-features = false, path = "../../../frame/vesting" }
 pallet-whitelist = { version = "4.0.0-dev", default-features = false, path = "../../../frame/whitelist" }
+
+
+# Frontier	
+ fp-rpc = {version="3.0.0-dev", path = "../../../evm-primitives/rpc", default-features = false }	
+fp-self-contained = {version="1.0.0-dev", path = "../../../evm-primitives/self-contained", default-features = false }	
+# # Frontier FRAME	
+pallet-base-fee = {version="1.0.0", path = "../../../evm-frame/base-fee", default-features = false }	
+pallet-dynamic-fee = {version = "4.0.0-dev", path = "../../../evm-frame/dynamic-fee", default-features = false }	
+pallet-ethereum = {version = "4.0.0-dev", path = "../../../evm-frame/ethereum", default-features = false }	
+ pallet-evm = { version="6.0.0-dev", path = "../../../evm-frame/evm", default-features = false }	
+ pallet-evm-precompile-modexp = {version = "2.0.0-dev", path = "../../../evm-frame/evm/precompile/modexp", default-features = false }	
+ pallet-evm-precompile-sha3fips = {version = "2.0.0-dev", path = "../../../evm-frame/evm/precompile/sha3fips", default-features = false }	
+ pallet-evm-precompile-simple = {version = "2.0.0-dev", path = "../../../evm-frame/evm/precompile/simple", default-features = false }	
+ pallet-hotfix-sufficients = {version = "1.0.0", path = "../../../evm-frame/hotfix-sufficients", default-features = false }	
+ pallet-evm-chain-id = { version = "1.0.0-dev", path = "../../../evm-frame/evm-chain-id", default-features = false }	
+
 
 [build-dependencies]
 substrate-wasm-builder = { version = "5.0.0-dev", path = "../../../utils/wasm-builder", optional = true }
@@ -180,6 +201,8 @@ std = [
 	"pallet-preimage/std",
 	"pallet-proxy/std",
 	"sp-core/std",
+		#"pallet-randomness-collective-flip/std",
+
 	"pallet-insecure-randomness-collective-flip/std",
 	"sp-std/std",
 	"pallet-session/std",
@@ -228,6 +251,19 @@ std = [
 	"pallet-child-bounties/std",
 	"pallet-alliance/std",
 	"substrate-wasm-builder",
+	# 	#frontier	
+	 "fp-rpc/std",	
+     "fp-self-contained/std",	
+    "pallet-base-fee/std",	
+    "pallet-dynamic-fee/std",	
+     "pallet-ethereum/std",	
+     "pallet-evm/std",	
+     "pallet-evm-precompile-simple/std",	
+     "pallet-evm-precompile-sha3fips/std",	
+	 "pallet-evm-precompile-simple/std",	
+	 "pallet-evm-chain-id/std",	
+
+
 ]
 runtime-benchmarks = [
 	"frame-benchmarking/runtime-benchmarks",
@@ -289,6 +325,12 @@ runtime-benchmarks = [
 	"pallet-vesting/runtime-benchmarks",
 	"pallet-whitelist/runtime-benchmarks",
 	"frame-system-benchmarking/runtime-benchmarks",
+	 "pallet-evm/runtime-benchmarks",	
+	 "pallet-ethereum/runtime-benchmarks",	
+     "pallet-evm/runtime-benchmarks",	
+	 "pallet-hotfix-sufficients/runtime-benchmarks",
+
+
 ]
 try-runtime = [
 	"frame-try-runtime/try-runtime",
@@ -329,6 +371,8 @@ try-runtime = [
 	"pallet-preimage/try-runtime",
 	"pallet-proxy/try-runtime",
 	"pallet-insecure-randomness-collective-flip/try-runtime",
+	#	"pallet-randomness-collective-flip/try-runtime",
+
 	"pallet-ranked-collective/try-runtime",
 	"pallet-recovery/try-runtime",
 	"pallet-referenda/try-runtime",
