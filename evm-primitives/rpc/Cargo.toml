@@ -9,7 +9,7 @@ description = "Runtime primitives for Ethereum RPC (web3) compatibility layer fo
 targets = ["x86_64-unknown-linux-gnu"]
 
 [dependencies]
-ethereum = { version = "0.14.0",features = ["with-codec"] }
+ethereum = { version = "0.14.0",default-features = false,features = ["with-codec"] }
 ethereum-types = { version = "0.14.1", default-features = false , features = ["rlp", "codec"]}
 scale-codec = { package = "parity-scale-codec", version = "3.2.1", default-features = false, features = ["derive"] }
 scale-info = { version = "2.3.1", default-features = false, features = ["derive"] }
@@ -18,7 +18,7 @@ sp-api = { version = "4.0.0-dev", path = "../../primitives/api", default-feature
 sp-core = { version = "7.0.0", path = "../../primitives/core", default-features = false }
 sp-runtime = { version = "7.0.0", default-features = false, path = "../../primitives/runtime" }
 sp-std = { version = "5.0.0",path = "../../primitives/std", default-features = false }
-sp-state-machine = { version = "0.13.0", path = "../../primitives/state-machine" }
+sp-state-machine = { version = "0.13.0", path = "../../primitives/state-machine",default-features=false }
 
 # Frontier
 fp-evm = { version = "3.0.0-dev", path = "../evm", default-features = false }
@@ -37,6 +37,7 @@ std = [
 	"sp-std/std",
 	# Frontier
 	"fp-evm/std",
+	"sp-state-machine/std"
 ]
 
 

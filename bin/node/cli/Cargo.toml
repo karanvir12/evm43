@@ -43,7 +43,7 @@ jsonrpsee = { version = "0.16.2", features = ["server"] }
 futures = "0.3.21"
 log = "0.4.17"
 rand = "0.8"
-
+hex-literal = "0.4.0"
 # primitives
 sp-authority-discovery = { version = "4.0.0-dev", path = "../../../primitives/authority-discovery" }
 sp-consensus-babe = { version = "0.10.0-dev", path = "../../../primitives/consensus/babe" }
@@ -59,6 +59,23 @@ sp-consensus = { version = "0.10.0-dev", path = "../../../primitives/consensus/c
 sp-transaction-pool = { version = "4.0.0-dev", path = "../../../primitives/transaction-pool" }
 sp-transaction-storage-proof = { version = "4.0.0-dev", path = "../../../primitives/transaction-storage-proof" }
 sp-io = { path = "../../../primitives/io" }
+
+
+# Frontier	
+fc-cli = { path = "../../../evm-client/cli" }	
+fc-consensus = { path = "../../../evm-client/consensus" }	
+fc-db = { path = "../../../evm-client/db" }	
+fc-mapping-sync = { path = "../../../evm-client/mapping-sync" }	
+fc-rpc = { path = "../../../evm-client/rpc" }	
+fc-rpc-core = { path = "../../../evm-client/rpc-core" }	
+fp-consensus = { path = "../../../evm-primitives/consensus" }	
+fp-dynamic-fee = { path = "../../../evm-primitives/dynamic-fee" }	
+fp-evm = { path = "../../../evm-primitives/evm" }	
+fp-rpc = { path = "../../../evm-primitives/rpc" }	
+fp-storage = { path = "../../../evm-primitives/storage" }	
+
+
+
 
 # client dependencies
 sc-client-api = { version = "4.0.0-dev", path = "../../../client/api" }

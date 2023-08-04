@@ -26,7 +26,7 @@ default = ["std"]
 std = [
 	"evm/std",
 	"evm/with-serde",
-	"serde/std",
+	"serde",
 	"scale-codec/std",
 	# Substrate
 	"frame-support/std",

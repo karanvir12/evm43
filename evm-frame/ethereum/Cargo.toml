@@ -31,9 +31,9 @@ fp-consensus = { version = "2.0.0-dev", path = "../../evm-primitives/consensus",
 fp-ethereum = { version = "1.0.0-dev", path = "../../evm-primitives/ethereum", default-features = false }
 fp-evm = { version = "3.0.0-dev", path = "../../evm-primitives/evm", default-features = false }
 fp-rpc = { version = "3.0.0-dev", path = "../../evm-primitives/rpc", default-features = false }
- fp-self-contained = { version = "1.0.0-dev", path = "../../evm-primitives/self-contained", default-features = false }
+fp-self-contained = { version = "1.0.0-dev", path = "../../evm-primitives/self-contained", default-features = false }
 fp-storage = { version = "2.0.0", path = "../../evm-primitives/storage", default-features = false }
-pallet-evm = { version = "6.0.0-dev", path = "../evm", default-features = false }
+ pallet-evm = { version = "6.0.0-dev", path = "../evm", default-features = false }
 
 [dev-dependencies]
 hex = "0.4.3"
@@ -42,6 +42,8 @@ libsecp256k1 = { version = "0.7.1", features = ["static-context", "hmac"] }
 sp-core = { version = "7.0.0", path = "../../primitives/core", default-features = false}
 # Substrate FRAME
 pallet-balances = { version = "4.0.0-dev", path = "../../frame/balances", default-features = false}
+
+
 [features]
 default = ["std"]
 std = [
@@ -59,20 +61,20 @@ std = [
 	"sp-runtime/std",
 	"sp-std/std",
 	# Frontier
-	"fp-consensus/std",
-	"fp-ethereum/std",
-	"fp-evm/std",
-	"fp-rpc/std",
-	"fp-self-contained/std",
-	"fp-storage/std",
-	"pallet-evm/std",
-	"pallet-balances/std",
+	 "fp-consensus/std",
+	 "fp-ethereum/std",
+	 "fp-evm/std",
+	  "fp-rpc/std",
+	 "fp-self-contained/std",
+	 "fp-storage/std",
+	 "pallet-evm/std",
+	
 ]
 runtime-benchmarks = [
 	"frame-support/runtime-benchmarks",
 	"frame-system/runtime-benchmarks",
 	"pallet-timestamp/runtime-benchmarks",
-	"pallet-evm/runtime-benchmarks",
+	 "pallet-evm/runtime-benchmarks",
 ]
 try-runtime = [
 	"frame-support/try-runtime",

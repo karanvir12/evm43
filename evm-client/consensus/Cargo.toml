@@ -18,7 +18,7 @@ sp-api = { version = "4.0.0-dev", path = "../../primitives/api" }
 sp-block-builder = { version = "4.0.0-dev", path = "../../primitives/block-builder" }
 sp-blockchain = { version = "4.0.0-dev", path = "../../primitives/blockchain" }
 sp-consensus = { version = "0.10.0-dev", path = "../../primitives/consensus/common" }
-sp-runtime = { version = "7.0.0", path = "../../primitives/runtime" }
+sp-runtime = { version = "7.0.0", path = "../../primitives/runtime",default-features = false  }
 
 # Frontier
 fc-db = { path = "../db" }

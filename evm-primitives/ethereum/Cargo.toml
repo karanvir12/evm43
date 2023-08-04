@@ -9,7 +9,7 @@ description = "Primitive Ethereum types."
 targets = ["x86_64-unknown-linux-gnu"]
 
 [dependencies]
-ethereum = { version = "0.14.0", features = ["with-codec"]}
+ethereum = { version = "0.14.0",default-features = false, features = ["with-codec"]}
 ethereum-types = { version = "0.14.1", default-features = false, features = ["rlp", "codec"] }
 num_enum = { version = "0.6.1", default-features = false }
 scale-codec = { package = "parity-scale-codec", version = "3.2.1", default-features = false, features = ["derive"] }

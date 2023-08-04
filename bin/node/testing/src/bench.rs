@@ -35,14 +35,14 @@ use crate::{
 use codec::{Decode, Encode};
 use futures::executor;
 use node_5ire_runtime::{
-	constants::currency::DOLLARS, AccountId, BalancesCall, CheckedExtrinsic, MinimumPeriod,
-	RuntimeCall, Signature, SystemCall, UncheckedExtrinsic,
+	constants::currency::DOLLARS, AccountId, BalancesCall,CheckedExtrinsic, MinimumPeriod,
+	RuntimeCall, Signature, SystemCall, UncheckedExtrinsic1,CheckedExtrinsic1,
 };
 use node_primitives::Block;
 use sc_block_builder::BlockBuilderProvider;
 use sc_client_api::{
 	execution_extensions::{ExecutionExtensions, ExecutionStrategies},
-	ExecutionStrategy,
+	ExecutionStrategy,BlockBackend,
 };
 use sc_client_db::PruningMode;
 use sc_consensus::{BlockImport, BlockImportParams, ForkChoiceStrategy, ImportResult, ImportedAux};
@@ -53,7 +53,7 @@ use sp_consensus::BlockOrigin;
 use sp_core::{blake2_256, ed25519, sr25519, traits::SpawnNamed, ExecutionContext, Pair, Public};
 use sp_inherents::InherentData;
 use sp_runtime::{
-	traits::{Block as BlockT, IdentifyAccount, Verify},
+	traits::{Block as BlockT, IdentifyAccount, Verify,Zero},
 	OpaqueExtrinsic,
 };
 
@@ -276,7 +276,10 @@ impl<'a> BlockContentIterator<'a> {
 		let runtime_version = client
 			.runtime_version_at(genesis_hash)
 			.expect("There should be runtime version at 0");
-
+		let genesis_hash = client
+		.block_hash(Zero::zero())
+		.expect("Database error?")
+		.expect("Genesis block always exists; qed");
 		BlockContentIterator { iteration: 0, content, keyring, runtime_version, genesis_hash }
 	}
 }
@@ -296,7 +299,7 @@ impl<'a> Iterator for BlockContentIterator<'a> {
 		));
 
 		let signed = self.keyring.sign(
-			CheckedExtrinsic {
+			CheckedExtrinsic1 {
 				signed: Some((
 					sender,
 					signed_extra(0, node_5ire_runtime::ExistentialDeposit::get() + 1),
@@ -308,7 +311,7 @@ impl<'a> Iterator for BlockContentIterator<'a> {
 							value: node_5ire_runtime::ExistentialDeposit::get() + 1,
 						}),
 					BlockType::RandomTransfersReaping => {
-						RuntimeCall::Balances(BalancesCall::transfer_allow_death {
+						RuntimeCall::Balances(BalancesCall::transfer {
 							dest: sp_runtime::MultiAddress::Id(receiver),
 							// Transfer so that ending balance would be 1 less than existential
 							// deposit so that we kill the sender account.
@@ -392,12 +395,19 @@ impl BenchDb {
 		let task_executor = TaskExecutor::new();
 
 		let backend = sc_service::new_db_backend(db_config).expect("Should not fail");
-		let executor = NativeElseWasmExecutor::new_with_wasm_executor(
-			sc_executor::WasmExecutor::builder()
-				.with_execution_method(WasmExecutionMethod::Compiled {
-					instantiation_strategy: WasmtimeInstantiationStrategy::PoolingCopyOnWrite,
-				})
-				.build(),
+	//	let executor = NativeElseWasmExecutor::new_with_wasm_executor(
+	//		sc_executor::WasmExecutor::builder()
+	//			.with_execution_method(WasmExecutionMethod::Compiled {
+	//				instantiation_strategy: WasmtimeInstantiationStrategy::PoolingCopyOnWrite,
+	//			})
+	//			.build(),
+	let executor = NativeElseWasmExecutor::new(
+		WasmExecutionMethod::Compiled {
+			instantiation_strategy: WasmtimeInstantiationStrategy::PoolingCopyOnWrite,
+		},
+		None,
+		8,
+		2,
 		);
 
 		let client_config = sc_service::ClientConfig::default();
@@ -570,11 +580,11 @@ impl BenchKeyring {
 	/// Sign transaction with keypair from this keyring.
 	pub fn sign(
 		&self,
-		xt: CheckedExtrinsic,
+		xt: CheckedExtrinsic1,
 		spec_version: u32,
 		tx_version: u32,
 		genesis_hash: [u8; 32],
-	) -> UncheckedExtrinsic {
+	) -> UncheckedExtrinsic1 {
 		match xt.signed {
 			Some((signed, extra)) => {
 				let payload = (
@@ -593,12 +603,12 @@ impl BenchKeyring {
 						key.sign(b)
 					}
 				});
-				UncheckedExtrinsic {
+				UncheckedExtrinsic1 {
 					signature: Some((sp_runtime::MultiAddress::Id(signed), signature, extra)),
 					function: payload.0,
 				}
 			},
-			None => UncheckedExtrinsic { signature: None, function: xt.function },
+			None => UncheckedExtrinsic1 { signature: None, function: xt.function },
 		}
 	}
 
