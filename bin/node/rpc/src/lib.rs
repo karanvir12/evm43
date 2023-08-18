@@ -93,7 +93,7 @@ pub struct FullDeps<C, P, SC, B> {
 }
 
 /// Instantiate all Full RPC extensions.
-pub fn create_full<C, P, SC, B>(
+pub fn  create_full<C, P, SC, B>(
 	deps: FullDeps<C, P, SC, B>,
 	backend: Arc<B>,
 ) -> Result<RpcModule<()>, Box<dyn std::error::Error + Send + Sync>>
